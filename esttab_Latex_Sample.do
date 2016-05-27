@@ -1,5 +1,6 @@
 
 /*
+Author: Anthony D'Agostino (ald2187 [at] columbia.edu)
 Filename: esttab_Latex_Sample.do 
 Date Created: 05/27/2016
 Dataset: 
