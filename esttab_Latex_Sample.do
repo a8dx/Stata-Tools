@@ -21,47 +21,47 @@ cap program drop sampleRun
 	eststo clear
 	set more off 
 	
-	loc full_controls "i.control1 control2 control3 c.control4##c.control4" 		
-	loc notes "Controls include ."	
+	loc full_controls "marital i.act_status hhsize edu c.age##c.age i.caste i.hh_rating" 		
+	loc notes "Controls include control1 control2 control3 control4 control5$^2$. Add more description here.  Further description.  Much more description.  No problems with column width here.  Can also do math, $\frac{3}{4} \leq \frac{4}{3}$, and more description here."	
 		loc lbl: variable label `dv'
 	
 	
 
 	
-		qui eststo: reg `dv' ib0.var1##c.var2 [pweight = weight], vce(cluster vill_state_98)
+		qui eststo: reg `dv' ib0.sex##c.Class1_pct_1km [pweight = weight], vce(cluster vill_state_98)
 					su `dv' if e(sample), mean 
 							loc mymean: di %8.2f r(mean) 	
 								estadd loc mD `mymean', replace							
 								estadd loc statefe "", replace 	
 								
-		qui eststo: reg `dv' `full_controls' ib0.var1##c.var2 [pweight = weight], vce(cluster vill_state_98)
+		qui eststo: reg `dv' `full_controls' ib0.sex##c.Class1_pct_1km [pweight = weight], vce(cluster vill_state_98)
 					su `dv' if e(sample), mean 
 							loc mymean: di %8.2f r(mean) 	
 								estadd loc mD `mymean', replace							
 								estadd loc statefe "", replace 	
 								estadd loc controls "$\checkmark$", replace	
 
-		qui eststo: reg `dv' `full_controls' i.state ib0.var1##c.var2 [pweight = weight], vce(cluster vill_state_98)
+		qui eststo: reg `dv' `full_controls' i.state_code ib0.sex##c.Class1_pct_1km [pweight = weight], vce(cluster vill_state_98)
 					su `dv' if e(sample), mean 
 							loc mymean: di %8.2f r(mean) 	
 								estadd loc mD `mymean', replace							
 								estadd loc statefe "$\checkmark$", replace 	
 								estadd loc controls "$\checkmark$", replace								
 								
-		qui eststo: reg `dv' ib0.var1##c.var2 if `dv' > 0 [pweight = weight], vce(cluster vill_state_98)
+		qui eststo: reg `dv' ib0.sex##c.Class1_pct_1km if `dv' > 0 [pweight = weight], vce(cluster vill_state_98)
 					su `dv' if e(sample), mean 
 							loc mymean: di %8.2f r(mean) 	
 								estadd loc mD `mymean', replace 							
 								estadd loc statefe "", replace 	
 								
-		qui eststo: reg `dv' `full_controls' ib0.var1##c.var2 if `dv' > 0 [pweight = weight], vce(cluster vill_state_98)
+		qui eststo: reg `dv' `full_controls' ib0.sex##c.Class1_pct_1km if `dv' > 0 [pweight = weight], vce(cluster vill_state_98)
 					su `dv' if e(sample), mean 
 							loc mymean: di %8.2f r(mean) 	
 								estadd loc mD `mymean', replace 							
 								estadd loc statefe "", replace 	
 								estadd loc controls "$\checkmark$", replace	
 								
-		qui eststo: reg `dv' `full_controls' i.state ib0.var1##c.var2 if `dv' > 0 [pweight = weight], vce(cluster vill_state_98)
+		qui eststo: reg `dv' `full_controls' i.state_code ib0.sex##c.Class1_pct_1km if `dv' > 0 [pweight = weight], vce(cluster vill_state_98)
 					su `dv' if e(sample), mean 
 							loc mymean: di %8.2f r(mean) 	
 								estadd loc mD `mymean', replace							
@@ -74,15 +74,15 @@ cap program drop sampleRun
 	loc dv_no_us = subinstr("`dv'", "_", "", . ) 
 	
 	#delimit ; 
-	loc heading "<insert table header here> `subsetDescription'"; 
- 	loc odir "<insert path here>";
+	loc heading "Insert Table Header Here"; 
+ 	loc odir "$tabBase/1982/timeModels";
 		cap mkdir "`odir'";
-	loc ofile "`odir'/<insert filename here>.tex"; 
+	loc ofile "`odir'/timeModels_FAKE.tex"; 
 
 	
 	loc resize 1.0; 
 			esttab using "`ofile'", se r2 label compress replace obslast depvars nocons nomtitles nonum
-			keep(1.var1 var2 1.var1#c.var2) legend star(* 0.10 ** 0.05 *** 0.01) title("`heading'") varlabels(1.var1 "Variable 1" var2 "Variable 2" 1.var1#c.var2 "Variable 1 $\times\$ Variable 2") 
+			keep(1.sex Class1_pct_1km 1.sex#c.Class1_pct_1km) legend star(* 0.10 ** 0.05 *** 0.01) title("`heading'") varlabels(1.sex "Variable 1" Class1_pct_1km "Variable 2" 1.sex#c.Class1_pct_1km "Variable 1 $\times\$ Variable 2") 
 			s(N mD controls statefe r2_a, labels("N" "DV Mean" "Controls" "State FE" "Adj. R$^2$")) 
 			prehead(
 				\begin{table}[!htbp] 

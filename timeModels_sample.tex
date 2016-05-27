@@ -1,0 +1,27 @@
+ \begin{table}[!htbp] \centering \def\sym#1{\ifmmode^{#1}\else\(^{#1}\)\fi} \label{tab:LFPRcropproddays} \caption{Insert Table Header Here} \resizebox{1.0\textwidth}{!}{ \begin{tabular}{l*{6}{c}}\tabularnewline \hline &\multicolumn{3}{c}{Days}&\multicolumn{3}{c}{Days $\times$ 1(Days$>$0)}\\\cmidrule(l){2-4}\cmidrule(l){5-7} 
+\hline \hline \
+Variable 1      &   -17.76\sym{***}&   -13.70\sym{***}&   -14.75\sym{***}&   -22.41\sym{***}&   -14.52\sym{***}&   -14.92\sym{***}\\
+                &  (4.103)         &  (3.516)         &  (3.282)         &  (4.843)         &  (4.516)         &  (3.805)         \\
+Variable 2      &   -1.776         &   -6.748         &   -12.92\sym{**} &   -1.229         &   -4.985         &   -10.21         \\
+                &  (7.389)         &  (6.633)         &  (6.159)         &  (8.057)         &  (8.332)         &  (6.633)         \\
+Variable 1 $\times$ Variable 2&   -4.193         &   -2.765         &   -5.110         &   -5.345         &   -4.581         &   -10.77         \\
+                &  (7.509)         &  (7.605)         &  (7.510)         &  (8.173)         &  (9.728)         &  (9.834)         \\
+\hline \noalign{\smallskip}
+N               &     6683         &     6675         &     6675         &     4896         &     4896         &     4896         \\
+DV Mean         &    45.13         &    45.18         &    45.18         &    61.60         &    61.60         &    61.60         \\
+Controls        &                  &$\checkmark$         &$\checkmark$         &                  &$\checkmark$         &$\checkmark$         \\
+State FE        &                  &                  &$\checkmark$         &                  &                  &$\checkmark$         \\
+Adj. R$^2$      &   0.0363         &    0.235         &    0.287         &   0.0531         &    0.183         &    0.268         \\
+\hline\hline
+\noalign{\smallskip}
+\end{tabular}
+}
+\medskip
+\begin{minipage}{1.0\textwidth}
+\footnotesize
+Notes:
+Controls include control1 control2 control3 control4 control5$^2$. Add more description here.  Further description.  Much more description.  No problems with column width here.  Can also do math, $\frac{3}{4} \leq \frac{4}{3}$, and more description here.
+\\
+\sym{*} \(p<0.10\), \sym{**} \(p<0.05\), \sym{***} \(p<0.01\)
+\end{minipage}
+\end{table}
